@@ -19,11 +19,11 @@ from fastapi.responses import JSONResponse, StreamingResponse, Response
 from vllm.engine.arg_utils import AsyncEngineArgs
 from vllm.engine.async_llm_engine import AsyncLLMEngine
 from vllm.engine.metrics import add_global_metrics_labels
-from vllm.entrypoints.openai.protocol import CompletionRequest, ChatCompletionRequest, ErrorResponse
+from protocol import CompletionRequest, ChatCompletionRequest, ErrorResponse
 from vllm.logger import init_logger
-from vllm.entrypoints.openai.serving_chat import OpenAIServingChat
-from vllm.entrypoints.openai.serving_completion import OpenAIServingCompletion
-from vllm.entrypoints.openai.serving_engine import LoRA
+from serving_chat import OpenAIServingChat
+from serving_completion import OpenAIServingCompletion
+from serving_engine import LoRA
 
 TIMEOUT_KEEP_ALIVE = 5  # seconds
 
@@ -83,8 +83,7 @@ def parse_args():
         "--api-key",
         type=str,
         default=None,
-        help=
-        "If provided, the server will require this key to be presented in the header."
+        help="If provided, the server will require this key to be presented in the header."
     )
     parser.add_argument("--served-model-name",
                         type=str,
@@ -98,8 +97,7 @@ def parse_args():
         default=None,
         nargs='+',
         action=LoRAParserAction,
-        help=
-        "LoRA module configurations in the format name=path. Multiple modules can be specified."
+        help="LoRA module configurations in the format name=path. Multiple modules can be specified."
     )
     parser.add_argument("--chat-template",
                         type=str,

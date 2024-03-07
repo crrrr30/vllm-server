@@ -5,11 +5,11 @@ from typing import Dict, List, Optional, Union
 from vllm.logger import init_logger
 from vllm.transformers_utils.tokenizer import get_tokenizer
 from vllm.engine.async_llm_engine import AsyncLLMEngine
-from vllm.entrypoints.openai.protocol import (CompletionRequest,
-                                              ChatCompletionRequest,
-                                              ErrorResponse, LogProbs,
-                                              ModelCard, ModelList,
-                                              ModelPermission)
+from protocol import (CompletionRequest,
+                      ChatCompletionRequest,
+                      ErrorResponse, LogProbs,
+                      ModelCard, ModelList,
+                      ModelPermission)
 from vllm.lora.request import LoRARequest
 
 logger = init_logger(__name__)
@@ -154,8 +154,10 @@ class OpenAIServing:
             raise ValueError(
                 "Only one of prompt or prompt_ids should be provided.")
 
-        input_ids = prompt_ids if prompt_ids is not None else self.tokenizer(
+        assert prompt_ids is None
+        input_ids = self.tokenizer(
             prompt, add_special_tokens=False).input_ids
+        print("\nSPECIAL_TOKENS DEDUPLICATED\n")
         token_num = len(input_ids)
 
         if request.max_tokens is None:

@@ -15,7 +15,7 @@ from .protocol import (
     UsageInfo,
 )
 from vllm.outputs import RequestOutput
-from vllm.entrypoints.openai.serving_engine import OpenAIServing, LoRA
+from serving_engine import OpenAIServing, LoRA
 
 logger = init_logger(__name__)
 
