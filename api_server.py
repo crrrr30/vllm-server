@@ -1,29 +1,32 @@
-import argparse
-import asyncio
-import json
-from contextlib import asynccontextmanager
-import os
-import importlib
-import inspect
-
-from aioprometheus import MetricsMiddleware
-from aioprometheus.asgi.starlette import metrics
-import fastapi
-import uvicorn
-from http import HTTPStatus
-from fastapi import Request
-from fastapi.exceptions import RequestValidationError
-from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import JSONResponse, StreamingResponse, Response
-
-from vllm.engine.arg_utils import AsyncEngineArgs
-from vllm.engine.async_llm_engine import AsyncLLMEngine
-from vllm.engine.metrics import add_global_metrics_labels
-from .protocol import CompletionRequest, ChatCompletionRequest, ErrorResponse
+from serving_engine import LoRA
+from serving_completion import OpenAIServingCompletion
+from serving_chat import OpenAIServingChat
 from vllm.logger import init_logger
-from .serving_chat import OpenAIServingChat
-from .serving_completion import OpenAIServingCompletion
-from .serving_engine import LoRA
+from protocol import CompletionRequest, ChatCompletionRequest, ErrorResponse
+from vllm.engine.metrics import add_global_metrics_labels
+from vllm.engine.async_llm_engine import AsyncLLMEngine
+from vllm.engine.arg_utils import AsyncEngineArgs
+from fastapi.responses import JSONResponse, StreamingResponse, Response
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.exceptions import RequestValidationError
+from fastapi import Request
+from http import HTTPStatus
+import uvicorn
+import fastapi
+from aioprometheus.asgi.starlette import metrics
+from aioprometheus import MetricsMiddleware
+import inspect
+import importlib
+from contextlib import asynccontextmanager
+import json
+import asyncio
+import argparse
+import sys
+import os
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+
 
 TIMEOUT_KEEP_ALIVE = 5  # seconds
 

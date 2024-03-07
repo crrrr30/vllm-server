@@ -1,12 +1,17 @@
+from vllm.sampling_params import SamplingParams
+from vllm.utils import random_uuid
+from pydantic import BaseModel, Field
+from typing import Dict, List, Literal, Optional, Union
+import time
+import sys
+import os
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+
+
 # Adapted from
 # https://github.com/lm-sys/FastChat/blob/168ccc29d3f7edc50823016105c024fe2282732a/fastchat/protocol/openai_api_protocol.py
-import time
-from typing import Dict, List, Literal, Optional, Union
-
-from pydantic import BaseModel, Field
-
-from vllm.utils import random_uuid
-from vllm.sampling_params import SamplingParams
 
 
 class ErrorResponse(BaseModel):

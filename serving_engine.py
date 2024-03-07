@@ -1,16 +1,22 @@
-import asyncio
-from dataclasses import dataclass
-from http import HTTPStatus
-from typing import Dict, List, Optional, Union
-from vllm.logger import init_logger
-from vllm.transformers_utils.tokenizer import get_tokenizer
-from vllm.engine.async_llm_engine import AsyncLLMEngine
-from .protocol import (CompletionRequest,
-                       ChatCompletionRequest,
-                       ErrorResponse, LogProbs,
-                       ModelCard, ModelList,
-                       ModelPermission)
 from vllm.lora.request import LoRARequest
+from protocol import (CompletionRequest,
+                      ChatCompletionRequest,
+                      ErrorResponse, LogProbs,
+                      ModelCard, ModelList,
+                      ModelPermission)
+from vllm.engine.async_llm_engine import AsyncLLMEngine
+from vllm.transformers_utils.tokenizer import get_tokenizer
+from vllm.logger import init_logger
+from typing import Dict, List, Optional, Union
+from http import HTTPStatus
+from dataclasses import dataclass
+import asyncio
+import sys
+import os
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+
 
 logger = init_logger(__name__)
 

@@ -1,17 +1,23 @@
-import time
-import codecs
-from fastapi import Request
-from typing import AsyncGenerator, AsyncIterator, Optional, List, Union
-from vllm.logger import init_logger
-from vllm.utils import random_uuid
-from vllm.engine.async_llm_engine import AsyncLLMEngine
-from .protocol import (
+from serving_engine import OpenAIServing, LoRA
+from vllm.outputs import RequestOutput
+from protocol import (
     ChatCompletionRequest, ChatCompletionResponse,
     ChatCompletionResponseChoice, ChatCompletionResponseStreamChoice,
     ChatCompletionStreamResponse, ChatMessage, DeltaMessage, ErrorResponse,
     UsageInfo)
-from vllm.outputs import RequestOutput
-from .serving_engine import OpenAIServing, LoRA
+from vllm.engine.async_llm_engine import AsyncLLMEngine
+from vllm.utils import random_uuid
+from vllm.logger import init_logger
+from typing import AsyncGenerator, AsyncIterator, Optional, List, Union
+from fastapi import Request
+import codecs
+import time
+import sys
+import os
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+
 
 logger = init_logger(__name__)
 

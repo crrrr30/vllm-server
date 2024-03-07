@@ -1,11 +1,6 @@
-import asyncio
-import time
-from fastapi import Request
-from typing import AsyncGenerator, AsyncIterator, Callable, List, Optional, Dict, Tuple
-from vllm.logger import init_logger
-from vllm.utils import random_uuid
-from vllm.engine.async_llm_engine import AsyncLLMEngine
-from .protocol import (
+from serving_engine import OpenAIServing, LoRA
+from vllm.outputs import RequestOutput
+from protocol import (
     CompletionRequest,
     CompletionResponse,
     CompletionResponseChoice,
@@ -14,8 +9,19 @@ from .protocol import (
     LogProbs,
     UsageInfo,
 )
-from vllm.outputs import RequestOutput
-from .serving_engine import OpenAIServing, LoRA
+from vllm.engine.async_llm_engine import AsyncLLMEngine
+from vllm.utils import random_uuid
+from vllm.logger import init_logger
+from typing import AsyncGenerator, AsyncIterator, Callable, List, Optional, Dict, Tuple
+from fastapi import Request
+import time
+import asyncio
+import sys
+import os
+
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+sys.path.append(os.path.dirname(SCRIPT_DIR))
+
 
 logger = init_logger(__name__)
 
