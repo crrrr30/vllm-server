@@ -5,11 +5,11 @@ from typing import Dict, List, Optional, Union
 from vllm.logger import init_logger
 from vllm.transformers_utils.tokenizer import get_tokenizer
 from vllm.engine.async_llm_engine import AsyncLLMEngine
-from protocol import (CompletionRequest,
-                      ChatCompletionRequest,
-                      ErrorResponse, LogProbs,
-                      ModelCard, ModelList,
-                      ModelPermission)
+from .protocol import (CompletionRequest,
+                       ChatCompletionRequest,
+                       ErrorResponse, LogProbs,
+                       ModelCard, ModelList,
+                       ModelPermission)
 from vllm.lora.request import LoRARequest
 
 logger = init_logger(__name__)

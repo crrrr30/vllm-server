@@ -19,11 +19,11 @@ from fastapi.responses import JSONResponse, StreamingResponse, Response
 from vllm.engine.arg_utils import AsyncEngineArgs
 from vllm.engine.async_llm_engine import AsyncLLMEngine
 from vllm.engine.metrics import add_global_metrics_labels
-from protocol import CompletionRequest, ChatCompletionRequest, ErrorResponse
+from .protocol import CompletionRequest, ChatCompletionRequest, ErrorResponse
 from vllm.logger import init_logger
-from serving_chat import OpenAIServingChat
-from serving_completion import OpenAIServingCompletion
-from serving_engine import LoRA
+from .serving_chat import OpenAIServingChat
+from .serving_completion import OpenAIServingCompletion
+from .serving_engine import LoRA
 
 TIMEOUT_KEEP_ALIVE = 5  # seconds
 
